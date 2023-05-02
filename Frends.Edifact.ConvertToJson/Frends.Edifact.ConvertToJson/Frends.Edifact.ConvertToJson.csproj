@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Frends.Edifact.ConvertToJson</AssemblyName>
+		<RootNamespace>Frends.Edifact.ConvertToJson</RootNamespace>
+
+		<Version>0.0.1</Version>
+		<Authors>Frends</Authors>
+		<Copyright>Frends</Copyright>
+		<Company>Frends</Company>
+		<Product>Frends</Product>
+		<PackageTags>Frends</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Description>Task for converting Edifact files to JSON.</Description>
+		<PackageProjectUrl>https://frends.com/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/FrendsPlatform/Frends.Edifact/tree/main/Frends.Edifact.ConvertToJson</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Frends.Edifabric.Activation" Version="1.0.3" />
+		<PackageReference Include="Frends.Edifabric.Templates.Edifact" Version="1.0.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="FrendsTaskMetadata.json" Pack="true" PackagePath="/">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

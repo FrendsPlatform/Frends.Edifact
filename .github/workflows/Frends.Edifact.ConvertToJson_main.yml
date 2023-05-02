@@ -1,0 +1,21 @@
+name: Frends.Edifact.ConvertToJson Main
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Frends.Edifact.ConvertToJson/**'
+      - 'Frends.Edifact.ConvertToJson.Tests/**'
+  workflow_dispatch:
+  
+
+jobs:
+  build:
+    uses: FrendsPlatform/FrendsTasks/.github/workflows/build_main.yml@custom-feed-feature
+    with:
+      workdir: Frends.Edifact.ConvertToJson
+    secrets:
+      custom_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
+      custom_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
+      
