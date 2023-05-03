@@ -18,4 +18,5 @@ jobs:
     secrets:
       custom_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
       custom_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
+      badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
       
