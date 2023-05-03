@@ -39,14 +39,16 @@ public static class Edifact
 
     private static Assembly AssemblyFactory(MessageContext messageContext)
     {
-        var returnAssembly = Assembly.Load($"Frends.Edifabric.Templates.Edifact.{messageContext.Version}");
-
-        if (returnAssembly == null)
+        try
         {
-            throw new ArgumentOutOfRangeException($"Version {messageContext.Version} is not supported.");
+            var returnAssembly = Assembly.Load($"Frends.Edifabric.Templates.Edifact.{messageContext.Version}");
+            return returnAssembly;
+        } catch (Exception ex)
+        {
+            throw new ArgumentOutOfRangeException($"Version {messageContext.Version} is not supported. See inner exception for details.", ex);
         }
 
-        return returnAssembly;
+
     }
 
     private static string ConvertEdifactToXml(

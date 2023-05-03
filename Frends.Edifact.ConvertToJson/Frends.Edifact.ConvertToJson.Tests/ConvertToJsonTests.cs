@@ -60,4 +60,23 @@ class ConvertToJsonTests : TestBase
         var jsonResult = ConvertToJsonAndBack(testData, true);
         Assert.AreEqual(testData.Replace("\r", "").Replace("\n", ""), jsonResult);
     }
+
+    [Test]
+    [TestCase("UnsupportedFormat.txt")]
+    public void UnsupportedFormat(string fileName)
+    {
+        string testData = ReadTestFile(fileName);
+
+        // First test that it throws an exception when UNB is missing
+        var exception = Assert.Throws<AggregateException>(() =>
+            {
+                Edifact.ConvertToJson(
+                    new Input { InputEdifact = testData, AllowMissingUNB = true });
+            });
+        Assert.NotNull(exception?.InnerException);
+        // The file has Edifact version set to D13131B
+        Assert.AreEqual(
+            "Version D13131B is not supported. See inner exception for details.",
+            exception?.InnerException?.Message);
+    }
 }
