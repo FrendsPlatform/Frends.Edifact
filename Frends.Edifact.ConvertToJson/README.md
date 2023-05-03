@@ -11,6 +11,7 @@ You can install the Task via Frends UI Task View.
 
 ## Building
 
+NB! Use the solution file `Frends.Edifact.Json.sln` to make sure that tests work, do not open `SolutionFileForBuildPipeline.sln`. This is because `dotnet build` and `dotnet test` command need a solution to succeed (and we call those in GitHub Actions during build), but for development in Visual Studio we have a shared solution file so that Visual Studio works propertly. 
 
 Rebuild the project
 
