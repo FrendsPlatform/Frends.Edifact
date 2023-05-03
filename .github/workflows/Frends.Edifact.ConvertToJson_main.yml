@@ -15,7 +15,7 @@ jobs:
     uses: FrendsPlatform/FrendsTasks/.github/workflows/build_main.yml@custom-feed-feature
     with:
       workdir: Frends.Edifact.ConvertToJson
-    secrets:
       custom_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
+    secrets:
       custom_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
       
