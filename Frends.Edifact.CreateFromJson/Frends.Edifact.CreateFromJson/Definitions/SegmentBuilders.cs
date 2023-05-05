@@ -44,7 +44,7 @@ internal static class SegmentBuilders
             },
 
             //  Interchange control reference
-            InterchangeControlReference_5 = "123AADA", //headerData.ControlNumber,
+            InterchangeControlReference_5 = headerData.ControlNumber,
         };
     }
 }

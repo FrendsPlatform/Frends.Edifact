@@ -43,7 +43,8 @@ public static class Edifact
         {
             var returnAssembly = Assembly.Load($"Frends.Edifabric.Templates.Edifact.{messageContext.Version}");
             return returnAssembly;
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             throw new ArgumentOutOfRangeException($"Version {messageContext.Version} is not supported. See inner exception for details.", ex);
         }

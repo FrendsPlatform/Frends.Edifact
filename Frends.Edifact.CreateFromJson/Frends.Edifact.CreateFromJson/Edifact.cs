@@ -23,7 +23,7 @@ public static class Edifact
     /// D95A, D95B, D96A, D96B, D97A, D97B, D98A, D98B, D99A, D99B.
     /// </summary>
     /// <param name="input">Input parameters.</param>
-    /// <returns>object { string Json }</returns>
+    /// <returns>object { string Edifact }</returns>
     public static Result CreateFromJson(
         [PropertyTab] Input input)
     {
@@ -77,16 +77,41 @@ public static class Edifact
         }
 
         var unhHeader = DeserializePart<UNH>(unh);
-        string assemblyName = $"Frends.Edifabric.Templates.Edifact.{unhHeader.MessageIdentifier_02.MessageVersionNumber_02}{unhHeader.MessageIdentifier_02.MessageReleaseNumber_03}";
-        string typeName = $"TS{unhHeader.MessageIdentifier_02.MessageType_01}";
+        var edifactVersion =
+            $"{unhHeader.MessageIdentifier_02.MessageVersionNumber_02}" +
+            $"{unhHeader.MessageIdentifier_02.MessageReleaseNumber_03}";
+        var typeName = $"TS{unhHeader.MessageIdentifier_02.MessageType_01}";
+        var assembly = LoadEdifactVersion(edifactVersion);
+        var returnType = FindEdifactMessageType(edifactVersion, typeName, assembly);
+        return returnType;
+    }
 
-        var returnType = Assembly.Load(assemblyName).ExportedTypes.FirstOrDefault(x => x.Name == typeName);
-
+    private static Type FindEdifactMessageType(string edifactVersion, string typeName, Assembly assembly)
+    {
+        var returnType = assembly.ExportedTypes.FirstOrDefault(x => x.Name == typeName);
         if (returnType == null)
         {
-            throw new ArgumentException($"EDIFACT message: {unhHeader.MessageIdentifier_02.MessageType_01} or version: {unhHeader.MessageIdentifier_02.MessageVersionNumber_02}{unhHeader.MessageIdentifier_02.MessageReleaseNumber_03} is not supported");
+            throw new ArgumentException(
+                $"Edifact message type {typeName} was not found in " +
+                $"Edifact version {edifactVersion}");
         }
+
         return returnType;
+    }
+
+    private static Assembly LoadEdifactVersion(string edifactVersion)
+    {
+        var assemblyName = $"Frends.Edifabric.Templates.Edifact.{edifactVersion}";
+        try
+        {
+            return Assembly.Load(assemblyName);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentOutOfRangeException(
+                $"Version {edifactVersion} is not supported. " +
+                $"See inner exception for details.", ex);
+        }
     }
 
     private static Type DetermineDocumentType(XElement ediXml)
