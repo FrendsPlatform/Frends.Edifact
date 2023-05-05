@@ -8,10 +8,6 @@ on:
     paths:
       - 'Frends.Edifact.ConvertToJson/**'
       - 'Frends.Edifact.ConvertToJson.Tests/**'
-  pull_request:
-    paths:
-      - 'Frends.Edifact.ConvertToJson/**'
-      - 'Frends.Edifact.ConvertToJson.Tests/**'
   
 
 jobs:
