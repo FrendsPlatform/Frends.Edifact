@@ -1,13 +1,13 @@
 name: Frends.Edifact.ConvertToJson Test
 
 on:
+  workflow_dispatch:
   push:
     branches-ignore: 
       - main
     paths:
       - 'Frends.Edifact.ConvertToJson/**'
       - 'Frends.Edifact.ConvertToJson.Tests/**'
-  workflow_dispatch:
   pull_request:
     paths:
       - 'Frends.Edifact.ConvertToJson/**'
