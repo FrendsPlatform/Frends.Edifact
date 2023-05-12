@@ -136,7 +136,7 @@ class CreateFromJsonTests : TestBase
         string testData = ReadTestFile("D93A_INVOIC - No UNB.json");
         var result = Edifact.CreateFromJson(
             new Input
-            { 
+            {
                 Json = testData,
                 CreateUNBHeader = true,
                 HeaderData = new HeaderData { ControlNumber = "FIND_ME" }
