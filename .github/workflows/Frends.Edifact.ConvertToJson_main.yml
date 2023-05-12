@@ -19,4 +19,3 @@ jobs:
       build_time_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
       build_time_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
       badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
-      
