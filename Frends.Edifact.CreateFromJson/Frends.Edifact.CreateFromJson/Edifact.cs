@@ -39,7 +39,7 @@ public static class Edifact
 
         var ediXml = XElement.Parse(xml);
         using var stream = new MemoryStream();
-        
+
         // Why we cannot use shorthand using here and must use a using block? Here:
         // EdifactWriter is Disposable and we *must* call dispose to make sure that
         // it gets properly cleaned up AND to make sure that it flushes all writes
