@@ -1,12 +1,12 @@
-name: Frends.Edifact.ConvertToJson Main
+name: Frends.Edifact.CreateFromJson Main
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'Frends.Edifact.ConvertToJson/**'
-      - 'Frends.Edifact.ConvertToJson.Tests/**'
+      - 'Frends.Edifact.CreateFromJson/**'
+      - 'Frends.Edifact.CreateFromJson.Tests/**'
   workflow_dispatch:
   
 
@@ -14,7 +14,7 @@ jobs:
   build:
     uses: FrendsPlatform/FrendsTasks/.github/workflows/build_main.yml@main
     with:
-      workdir: Frends.Edifact.ConvertToJson
+      workdir: Frends.Edifact.CreateFromJson
     secrets:
       build_time_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
       build_time_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
