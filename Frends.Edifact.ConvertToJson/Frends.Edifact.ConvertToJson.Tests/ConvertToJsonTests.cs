@@ -5,13 +5,13 @@ using NUnit.Framework;
 namespace Frends.Edifact.ConvertToJson.Tests;
 
 [TestFixture]
-class ConvertToJsonTests : TestBase
+class ConvertToJsonTests
 {
     [Test]
     [TestCase("D01B_IFCSUM.txt")]
     public void JsonAllowMissingUnb(string fileName)
     {
-        string testData = ReadTestFile(fileName);
+        string testData = TestHelpers.ReadTestFile(fileName);
 
         // First test that it throws an exception when UNB is missing
         Assert.Throws<AggregateException>(() =>
@@ -47,8 +47,8 @@ class ConvertToJsonTests : TestBase
     [TestCase("D96A_PRICAT.txt")]
     public void NoHeaderTest(string fileName)
     {
-        string testData = ReadTestFile(fileName);
-        var jsonResult = ConvertToJsonAndBack(testData, false);
+        string testData = TestHelpers.ReadTestFile(fileName);
+        var jsonResult = TestHelpers.ConvertToJsonAndBack(testData, false);
         Assert.AreEqual(testData.Replace("\r", "").Replace("\n", ""), jsonResult);
     }
 
@@ -56,8 +56,8 @@ class ConvertToJsonTests : TestBase
     [TestCase("D93A_UNOC.txt")]
     public void WithHeaderTest(string fileName)
     {
-        string testData = ReadTestFile(fileName);
-        var jsonResult = ConvertToJsonAndBack(testData, true);
+        string testData = TestHelpers.ReadTestFile(fileName);
+        var jsonResult = TestHelpers.ConvertToJsonAndBack(testData, true);
         Assert.AreEqual(testData.Replace("\r", "").Replace("\n", ""), jsonResult);
     }
 
@@ -65,7 +65,7 @@ class ConvertToJsonTests : TestBase
     [TestCase("UnsupportedFormat.txt")]
     public void UnsupportedFormat(string fileName)
     {
-        string testData = ReadTestFile(fileName);
+        string testData = TestHelpers.ReadTestFile(fileName);
 
         // First test that it throws an exception when UNB is missing
         var exception = Assert.Throws<AggregateException>(() =>

@@ -24,6 +24,7 @@ public static class Edifact
     /// D05B, D06A, D06B, D07A, D07B, D08A, D08B, D09A, D09B, D10A, D10B, D11A,
     /// D11B, D12A, D13A, D14A, D15A, D16A, D17A, D18A, D19A, D93A, D94A, D94B,
     /// D95A, D95B, D96A, D96B, D97A, D97B, D98A, D98B, D99A, D99B.
+    /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.ConvertToJson)
     /// </summary>
     /// <param name="input">Input parameters.</param>
     /// <returns>object { string Json }</returns>

@@ -1,11 +1,12 @@
 using Frends.Edifact.CreateFromJson.Definitions;
 using NUnit.Framework;
 using System;
+using System.Threading;
 
 namespace Frends.Edifact.CreateFromJson.Tests;
 
 [TestFixture]
-class CreateFromJsonTests : TestBase
+class CreateFromJsonTests
 {
     [Test]
     [TestCase("D01B_INVOIC.txt")]
@@ -28,8 +29,8 @@ class CreateFromJsonTests : TestBase
     [TestCase("D96A_PRICAT.txt")]
     public void NoHeaderTest(string fileName)
     {
-        string testData = ReadTestFile(fileName);
-        var jsonResult = ConvertToJsonAndBack(testData, false);
+        string testData = TestHelpers.ReadTestFile(fileName);
+        var jsonResult = TestHelpers.ConvertToJsonAndBack(testData, false);
         Assert.AreEqual(testData.Replace("\r", "").Replace("\n", ""), jsonResult);
     }
 
@@ -37,8 +38,8 @@ class CreateFromJsonTests : TestBase
     [TestCase("D93A_UNOC.txt")]
     public void WithHeaderTest(string fileName)
     {
-        string testData = ReadTestFile(fileName);
-        var jsonResult = ConvertToJsonAndBack(testData, true);
+        string testData = TestHelpers.ReadTestFile(fileName);
+        var jsonResult = TestHelpers.ConvertToJsonAndBack(testData, true);
         Assert.AreEqual(testData.Replace("\r", "").Replace("\n", ""), jsonResult);
     }
 
@@ -62,7 +63,8 @@ class CreateFromJsonTests : TestBase
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
             Edifact.CreateFromJson(
-                new Input { Json = testData });
+                new Input { Json = testData },
+                CancellationToken.None);
         });
         Assert.NotNull(exception?.InnerException);
 
@@ -92,36 +94,8 @@ class CreateFromJsonTests : TestBase
         var exception = Assert.Throws<ArgumentException>(() =>
         {
             Edifact.CreateFromJson(
-                new Input { Json = testData });
-        });
-
-        // The file has Edifact message type was set to FOOBAR
-        Assert.AreEqual(
-            "Edifact message type TSFOOBAR was not found in Edifact version D96A",
-            exception?.Message);
-    }
-
-    [Test]
-    public void BuildUnb()
-    {
-        string testData = @"{
-""Edifact"":
-{
-    ""UNH"":
-    {
-        ""MessageIdentifier_02"":
-        {
-            ""MessageType_01"": ""FOOBAR"",
-            ""MessageVersionNumber_02"": ""D"",
-            ""MessageReleaseNumber_03"": ""96A""
-        }
-    }
-}";
-
-        var exception = Assert.Throws<ArgumentException>(() =>
-        {
-            Edifact.CreateFromJson(
-                new Input { Json = testData });
+                new Input { Json = testData },
+                CancellationToken.None);
         });
 
         // The file has Edifact message type was set to FOOBAR
@@ -133,14 +107,15 @@ class CreateFromJsonTests : TestBase
     [Test]
     public void CreateUnbHeader()
     {
-        string testData = ReadTestFile("D93A_INVOIC - No UNB.json");
+        string testData = TestHelpers.ReadTestFile("D93A_INVOIC - No UNB.json");
         var result = Edifact.CreateFromJson(
             new Input
             {
                 Json = testData,
                 CreateUNBHeader = true,
                 HeaderData = new HeaderData { ControlNumber = "FIND_ME" }
-            });
+            },
+            CancellationToken.None);
         Assert.IsTrue(result.Edifact.Contains("FIND_ME"), "Could not verify that UNB header was created.");
     }
 }
