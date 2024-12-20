@@ -37,7 +37,7 @@ public static class Edifact
 
         var edifactDocument = input.InputEdifact;
 
-        EdifactReaderSettings edifactReaderSettings = new () { NoEnvelope = input.AllowMissingUNB };
+        EdifactReaderSettings edifactReaderSettings = new() { NoEnvelope = input.AllowMissingUNB };
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(edifactDocument));
         using var ediReader = new EdifactReader(stream, AssemblyFactory, edifactReaderSettings);
         var ediItems = ediReader.ReadToEnd().ToList();
