@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromJs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromJson.Tests", "Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson.Tests\Frends.Edifact.CreateFromJson.Tests.csproj", "{0C8163A5-5E55-414B-AC53-AF918DECEE60}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromXml", "Frends.Edifact.CreateFromXml\Frends.Edifact.CreateFromXml\Frends.Edifact.CreateFromXml.csproj", "{9E5A703F-9614-4329-A5F0-8CA305FF9174}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromXml.Tests", "Frends.Edifact.CreateFromXml\Frends.Edifact.CreateFromXml.Tests\Frends.Edifact.CreateFromXml.Tests.csproj", "{2011E1DA-A823-48B6-B057-37FF0C7161C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{0C8163A5-5E55-414B-AC53-AF918DECEE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8163A5-5E55-414B-AC53-AF918DECEE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8163A5-5E55-414B-AC53-AF918DECEE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E5A703F-9614-4329-A5F0-8CA305FF9174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5A703F-9614-4329-A5F0-8CA305FF9174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5A703F-9614-4329-A5F0-8CA305FF9174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5A703F-9614-4329-A5F0-8CA305FF9174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2011E1DA-A823-48B6-B057-37FF0C7161C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2011E1DA-A823-48B6-B057-37FF0C7161C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2011E1DA-A823-48B6-B057-37FF0C7161C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2011E1DA-A823-48B6-B057-37FF0C7161C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
