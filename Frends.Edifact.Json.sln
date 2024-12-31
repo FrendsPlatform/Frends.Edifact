@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromXm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.CreateFromXml.Tests", "Frends.Edifact.CreateFromXml\Frends.Edifact.CreateFromXml.Tests\Frends.Edifact.CreateFromXml.Tests.csproj", "{2011E1DA-A823-48B6-B057-37FF0C7161C9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.ConvertToXml", "Frends.Edifact.ConvertToXml\Frends.Edifact.ConvertToXml\Frends.Edifact.ConvertToXml.csproj", "{2B8CE656-5FD8-46EE-BCBA-B9B88DCECD86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Edifact.ConvertToXml.Tests", "Frends.Edifact.ConvertToXml\Frends.Edifact.ConvertToXml.Tests\Frends.Edifact.ConvertToXml.Tests.csproj", "{5D62C60C-BE35-4D4D-8171-BC07DAE42AF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

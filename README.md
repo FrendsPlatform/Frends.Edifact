@@ -6,6 +6,7 @@ Frends tasks for Edifact format.
 
 - [Frends.Edifact.ConvertToJson](Frends.Edifact.ConvertToJson/README.md)
 - [Frends.Edifact.CreateFromJson](Frends.Edifact.CreateFromJson/README.md)
+- [Frends.Edifact.ConvertToXml](Frends.Edifact.ConvertToXml/README.md)
 
 # Special setup
 
