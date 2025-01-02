@@ -14,14 +14,13 @@ using System.Threading;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-
 /// <summary>
-/// Task for converting Edifact to XML.
+/// Task for creating Edifact from XML.
 /// </summary>
 public static class Edifact
 {
     /// <summary>
-    /// Converts an EDIFACT document to XML. Supports the following formats:
+    /// Converts an XML document to EDIFACT document. Supports the following formats:
     /// D00A, D00B, D01A, D01B, D01C, D02A, D02B, D03A, D03B, D04A, D04B, D05A,
     /// D05B, D06A, D06B, D07A, D07B, D08A, D08B, D09A, D09B, D10A, D10B, D11A,
     /// D11B, D12A, D13A, D14A, D15A, D16A, D17A, D18A, D19A, D93A, D94A, D94B,

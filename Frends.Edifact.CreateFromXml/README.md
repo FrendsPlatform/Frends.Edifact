@@ -1,8 +1,8 @@
 # Frends.Edifact.CreateFromXml
-Description what the Task will do.
+Frends Task to create Edifact from XML.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build](https://github.com/FrendsPlatform/Frends.Edifact/actions/workflows/CreateFromXml_build_and_test_on_main.yml/badge.svg)](https://github.com/FrendsPlatform/Frends.Edifact/actions)
+[![Build](https://github.com/FrendsPlatform/Frends.Edifact/actions/workflows/Frends.Edifact.CreateFromXml_main/badge.svg)](https://github.com/FrendsPlatform/Frends.Edifact/actions)
 ![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.Edifact/Frends.Edifact.CreateFromXml|main)
 
 ## Installing

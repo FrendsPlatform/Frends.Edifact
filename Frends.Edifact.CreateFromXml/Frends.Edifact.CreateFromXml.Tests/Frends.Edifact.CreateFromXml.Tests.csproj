@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frends.Edifact.ConvertToXml\Frends.Edifact.ConvertToXml\Frends.Edifact.ConvertToXml.csproj" />
     <ProjectReference Include="..\Frends.Edifact.CreateFromXml\Frends.Edifact.CreateFromXml.csproj" />
   </ItemGroup>
 
