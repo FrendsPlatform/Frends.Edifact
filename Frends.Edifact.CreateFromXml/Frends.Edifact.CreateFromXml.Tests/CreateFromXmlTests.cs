@@ -45,7 +45,7 @@ class CreateFromXmlTests
 
     [Test]
     public void UnsupportedEdifactVersion()
-        {
+    {
         string testData = @"<Edifact>
         <UNH>
             <MessageIdentifier_02>
