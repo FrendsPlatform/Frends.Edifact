@@ -27,8 +27,20 @@ public class Input
     /// XML.
     /// </summary>
     /// <example>
-    ///TODO
-    /// }</example>
+    /// &lt;Edifact&gt;
+    ///   &lt;TSPAXLST&gt;
+    ///     &lt;UNH&gt;
+    ///       &lt;MessageReferenceNumber_01&gt;PAXLST16&lt;/MessageReferenceNumber_01&gt;
+    ///       &lt;MessageIdentifier_02&gt;
+    ///         &lt;MessageType_01&gt;PAXLST&lt;/MessageType_01&gt;
+    ///         &lt;MessageVersionNumber_02&gt;D&lt;/MessageVersionNumber_02&gt;
+    ///         &lt;MessageReleaseNumber_03&gt;03B&lt;/MessageReleaseNumber_03&gt;
+    ///         &lt;ControllingAgencyCoded_04&gt;UN&lt;/ControllingAgencyCoded_04&gt;
+    ///       &lt;/MessageIdentifier_02&gt;
+    ///     &lt;/UNH&gt;
+    ///   &lt;/TSPAXLST&gt;
+    /// &lt;/Edifact&gt;.
+    /// </example>
     [DisplayFormat(DataFormatString = "Xml")]
     public string Xml { get; set; } = string.Empty;
 }
