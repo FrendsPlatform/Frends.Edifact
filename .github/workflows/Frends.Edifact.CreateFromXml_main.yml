@@ -1,0 +1,20 @@
+name: Frends.Edifact.CreateFromXml Main
+
+on:
+  push:
+    branches:    
+      - main
+    paths:
+      - 'Frends.Edifact.CreateFromXml/**'
+      - 'Frends.Edifact.CreateFromXml.Tests/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: FrendsPlatform/FrendsTasks/.github/workflows/build_main.yml@main
+    with:
+      workdir: Frends.Edifact.CreateFromXml
+    secrets:
+      build_time_nuget_feed_url: ${{ secrets.PRIVATE_NUGET_FEED_URL }}
+      build_time_nuget_feed_api_key: ${{ secrets.PRIVATE_NUGET_FEED_API_KEY }}
+      badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
