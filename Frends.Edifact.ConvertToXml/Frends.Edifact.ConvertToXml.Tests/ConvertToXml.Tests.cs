@@ -51,6 +51,7 @@ public class ConvertToXmlTests
                 CancellationToken.None);
         });
         Assert.NotNull(exception);
+        Assert.That(exception.Message, Contains.Substring("Version D13131B is not supported"));
     }
 
     [Test]
