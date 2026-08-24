@@ -43,4 +43,16 @@ internal class ErrorHandlerTest
         Assert.That(ex, Is.Not.Null);
         Assert.That(ex.Message, Contains.Substring(CustomErrorMessage));
     }
+
+    [Test]
+    public void Should_Return_Custom_ErrorMessageOnFailure_In_Result()
+    {
+        var options = DefaultOptions();
+        options.ThrowErrorOnFailure = false;
+        options.ErrorMessageOnFailure = CustomErrorMessage;
+        var result = Edifact.CreateFromJson(InvalidInput(), options, CancellationToken.None);
+        Assert.That(result.Success, Is.False);
+        Assert.That(result.Error, Is.Not.Null);
+        Assert.That(result.Error.Message, Contains.Substring(CustomErrorMessage));
+    }
 }
