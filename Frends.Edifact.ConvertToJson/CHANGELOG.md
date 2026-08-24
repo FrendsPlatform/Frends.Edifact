@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.0.0] - 2026-08-24
+## [1.2.0] - 2026-08-24
 ### Changed
 - Added Options parameter with ThrowErrorOnFailure and ErrorMessageOnFailure support.
 - Added CancellationToken parameter for cancellation support.
