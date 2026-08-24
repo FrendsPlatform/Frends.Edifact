@@ -12,10 +12,15 @@ internal static class TestHelpers
         return File.ReadAllText(string.Concat(TestContext.CurrentContext.TestDirectory, @"..\..\..\..\..\..\TestFiles\", fileName));
     }
 
+    internal static Options DefaultOptions()
+    {
+        return new Options { ThrowErrorOnFailure = true };
+    }
+
     internal static string ConvertToJsonAndBack(string testData, bool createUnbHeader)
     {
         var jsonResult = Edifact.ConvertToJson(
-            new Input { InputEdifact = testData });
+            new Input { InputEdifact = testData }, DefaultOptions(), CancellationToken.None);
 
         var ediResult = from.Edifact.CreateFromJson(
             new from.Definitions.Input()

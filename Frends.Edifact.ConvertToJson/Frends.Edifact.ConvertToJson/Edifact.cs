@@ -3,6 +3,7 @@ using EdiFabric.Core.Model.Edi.ErrorContexts;
 using EdiFabric.Framework;
 using EdiFabric.Framework.Readers;
 using Frends.Edifact.ConvertToJson.Definitions;
+using Frends.Edifact.ConvertToJson.Helpers;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Reflection;
@@ -27,15 +28,27 @@ public static class Edifact
     /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.ConvertToJson)
     /// </summary>
     /// <param name="input">Input parameters.</param>
-    /// <returns>object { string Json }</returns>
+    /// <param name="options">Additional parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>object { bool Success, Error Error, string Json }</returns>
     public static Result ConvertToJson(
-        [PropertyTab] Input input)
+        [PropertyTab] Input input,
+        [PropertyTab] Options options,
+        CancellationToken cancellationToken)
     {
-        var xmlResult = ConvertEdifactToXml(input);
-        XmlDocument doc = new();
-        doc.LoadXml(xmlResult);
-        var json = JsonConvert.SerializeXmlNode(doc);
-        return new Result { Json = json };
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var xmlResult = ConvertEdifactToXml(input);
+            XmlDocument doc = new();
+            doc.LoadXml(xmlResult);
+            var json = JsonConvert.SerializeXmlNode(doc);
+            return new Result { Success = true, Json = json };
+        }
+        catch (Exception ex)
+        {
+            return ex.Handle(options);
+        }
     }
 
     private static Assembly AssemblyFactory(MessageContext messageContext)
