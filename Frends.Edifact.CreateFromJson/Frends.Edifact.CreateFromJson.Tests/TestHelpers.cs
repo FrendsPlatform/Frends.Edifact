@@ -22,6 +22,7 @@ internal static class TestHelpers
                 CreateUNBHeader = createUnbHeader,
                 Json = jsonResult.Json
             },
+            new Definitions.Options(),
             CancellationToken.None
         );
 

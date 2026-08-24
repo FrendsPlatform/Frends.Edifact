@@ -2,6 +2,7 @@
 using EdiFabric.Core.Model.Edi.Edifact;
 using EdiFabric.Framework.Writers;
 using Frends.Edifact.CreateFromJson.Definitions;
+using Frends.Edifact.CreateFromJson.Helpers;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Reflection;
@@ -24,16 +25,25 @@ public static class Edifact
     /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.CreateFromJson)
     /// </summary>
     /// <param name="input">Input parameters.</param>
+    /// <param name="options">Additional parameters.</param>
     /// <param name="cancellationToken">Frends cancellation token.</param>
     /// <returns>object { string Edifact }</returns>
     public static Result CreateFromJson(
         [PropertyTab] Input input,
+        [PropertyTab] Options options,
         CancellationToken cancellationToken)
     {
-        var xml = JsonConvert.DeserializeXmlNode(input.Json);
-        if (xml == null) throw new FormatException("Cound not deserialize input JSON.");
-        var result = CreateEdifactFromXml(xml.OuterXml, input, cancellationToken);
-        return new Result { Edifact = result };
+        try
+        {
+            var xml = JsonConvert.DeserializeXmlNode(input.Json);
+            if (xml == null) throw new FormatException("Cound not deserialize input JSON.");
+            var result = CreateEdifactFromXml(xml.OuterXml, input, cancellationToken);
+            return new Result { Success = true, Edifact = result };
+        }
+        catch (Exception ex)
+        {
+            return ex.Handle(options);
+        }
     }
 
     private static string CreateEdifactFromXml(
