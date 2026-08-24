@@ -1,3 +1,5 @@
+using System;
+
 namespace Frends.Edifact.ConvertToJson.Definitions;
 
 /// <summary>
@@ -15,5 +17,5 @@ public class Error
     /// Additional info, typically the original exception.
     /// </summary>
     /// <example>null</example>
-    public object AdditionalInfo { get; set; } = null;
+    public Exception AdditionalInfo { get; set; } = null;
 }
