@@ -21,6 +21,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="Frends.Edifact.ConvertToJson.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Frends.Edifabric.Activation" Version="1.0.3" />
 		<PackageReference Include="Frends.Edifabric.Templates.Edifact" Version="1.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

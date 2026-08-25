@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Frends.Edifact.ConvertToJson.Definitions;
+using Frends.Edifact.ConvertToJson.Helpers;
 using NUnit.Framework;
 
 namespace Frends.Edifact.ConvertToJson.Tests;
@@ -51,6 +52,19 @@ internal class ErrorHandlerTest
                 options,
                 CancellationToken.None));
         Assert.That(ex, Is.Not.Null);
-        Assert.That(ex.Message, Contains.Substring(CustomErrorMessage));
+        Assert.That(ex?.Message, Contains.Substring(CustomErrorMessage));
+    }
+
+    [Test]
+    public void ThrowIfCanceled_Should_Throw_OperationCanceledException_When_ThrowCanceled_Is_True()
+    {
+        var options = TestHelpers.DefaultOptions();
+        options.ThrowErrorOnFailure = false;
+        var canceledException = new OperationCanceledException("Operation was canceled");
+
+        var ex = Assert.Throws<OperationCanceledException>(() =>
+            canceledException.Handle(options, throwCanceled: true));
+        Assert.That(ex, Is.SameAs(canceledException));
+        Assert.That(ex?.Message, Is.EqualTo("Operation was canceled"));
     }
 }
