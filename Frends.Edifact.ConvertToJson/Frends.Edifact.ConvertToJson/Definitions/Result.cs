@@ -21,7 +21,7 @@ public class Result
     /// Result of converting Edifact to JSON.
     /// </summary>
     /// <example>
-    /// { 
+    /// {
     ///     "Edifact": {
     ///         "UNB": { ... }
     ///         "TSINVOIC": { ... }
@@ -29,5 +29,5 @@ public class Result
     ///     }
     /// }
     /// </example>
-    public string Json { get; internal set; } = "";
+    public string Json { get; internal set; } = string.Empty;
 }
