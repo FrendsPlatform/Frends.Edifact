@@ -27,5 +27,5 @@ public class Result
     /// ...
     /// UNZ+1+SE1234567'
     /// </example>
-    public string Edifact { get; internal set; } = "";
+    public string Edifact { get; internal set; } = string.Empty;
 }

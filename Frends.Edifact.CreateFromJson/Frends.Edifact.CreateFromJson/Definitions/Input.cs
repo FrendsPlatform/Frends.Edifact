@@ -28,7 +28,7 @@ public class Input
     /// JSON.
     /// </summary>
     /// <example>
-    /// { 
+    /// {
     ///     "Edifact": {
     ///         "UNB": { ... }
     ///         "TSINVOIC": { ... }
@@ -36,5 +36,5 @@ public class Input
     ///     }
     /// }</example>
     [DisplayFormat(DataFormatString = "Json")]
-    public string Json { get; set; } = "";
+    public string Json { get; set; } = string.Empty;
 }

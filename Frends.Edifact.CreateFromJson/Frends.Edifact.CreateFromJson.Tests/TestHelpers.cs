@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.IO;
 using System.Threading;
-using to = Frends.Edifact.ConvertToJson;
+using To = Frends.Edifact.ConvertToJson;
 
 namespace Frends.Edifact.CreateFromJson.Tests;
 internal static class TestHelpers
@@ -13,8 +13,8 @@ internal static class TestHelpers
 
     internal static string ConvertToJsonAndBack(string testData, bool createUnbHeader)
     {
-        var jsonResult = to.Edifact.ConvertToJson(
-            new to.Definitions.Input { InputEdifact = testData });
+        var jsonResult = To.Edifact.ConvertToJson(
+            new To.Definitions.Input { InputEdifact = testData });
 
         var ediResult = Edifact.CreateFromJson(
             new Definitions.Input()

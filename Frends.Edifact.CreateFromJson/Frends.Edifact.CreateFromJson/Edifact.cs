@@ -1,15 +1,16 @@
-﻿using EdiFabric.Core.Model.Edi;
-using EdiFabric.Core.Model.Edi.Edifact;
-using EdiFabric.Framework.Writers;
-using Frends.Edifact.CreateFromJson.Definitions;
-using Frends.Edifact.CreateFromJson.Helpers;
-using Newtonsoft.Json;
+﻿namespace Frends.Edifact.CreateFromJson;
+
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-namespace Frends.Edifact.CreateFromJson;
+using EdiFabric.Core.Model.Edi;
+using EdiFabric.Core.Model.Edi.Edifact;
+using EdiFabric.Framework.Writers;
+using Frends.Edifact.CreateFromJson.Definitions;
+using Frends.Edifact.CreateFromJson.Helpers;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Task for converting Edifact to JSON.
@@ -123,8 +124,7 @@ public static class Edifact
         catch (Exception ex)
         {
             throw new ArgumentOutOfRangeException(
-                $"Version {edifactVersion} is not supported. " +
-                $"See inner exception for details.", ex);
+                $"Version {edifactVersion} is not supported. " + $"See inner exception for details.", ex);
         }
     }
 
@@ -144,8 +144,7 @@ public static class Edifact
     }
 
     private static void WriteEdiMessages(
-        XElement ediXml, Type documentType,
-        EdifactWriter writer, CancellationToken cancellationToken)
+        XElement ediXml, Type documentType, EdifactWriter writer, CancellationToken cancellationToken)
     {
         var ediMessages = ediXml.DescendantsAndSelf(documentType.Name.ToString());
         foreach (var xElement in ediMessages)

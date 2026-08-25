@@ -8,6 +8,9 @@ namespace Frends.Edifact.CreateFromJson.Helpers;
 /// </summary>
 internal static class ErrorHandler
 {
+    /// <summary>
+    /// Converts an exception into a failed Result object or rethrows based on task options.
+    /// </summary>
     /// <param name="exception">The exception to handle.</param>
     /// <param name="options">Task options that control whether failures are returned as a Result object or thrown.</param>
     /// <param name="throwCanceled">
@@ -28,7 +31,7 @@ internal static class ErrorHandler
         if (throwCanceled && exception is OperationCanceledException) throw exception;
     }
 
-    private static void ThrowBaseException(Exception exception, string customMessage = null)
+    private static void ThrowBaseException(Exception exception, string? customMessage = null)
     {
         if (string.IsNullOrEmpty(customMessage))
             throw new Exception(exception.Message, exception);
@@ -36,7 +39,7 @@ internal static class ErrorHandler
         throw new Exception(customMessage, exception);
     }
 
-    private static Result ReturnResult(Exception exception, string customMessage = null)
+    private static Result ReturnResult(Exception exception, string? customMessage = null)
     {
         var errorMessage = string.IsNullOrEmpty(customMessage)
             ? exception.Message
