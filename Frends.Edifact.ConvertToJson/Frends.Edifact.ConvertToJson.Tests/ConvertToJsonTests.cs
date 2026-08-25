@@ -77,6 +77,6 @@ class ConvertToJsonTests
             });
         Assert.NotNull(exception);
         // The file has Edifact version set to D13131B
-        Assert.That(exception.Message, Does.Contain("D13131B"));
+        Assert.That(exception?.Message, Does.Contain("D13131B"));
     }
 }

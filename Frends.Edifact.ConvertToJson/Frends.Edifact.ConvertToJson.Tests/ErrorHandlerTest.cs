@@ -67,4 +67,31 @@ internal class ErrorHandlerTest
         Assert.That(ex, Is.SameAs(canceledException));
         Assert.That(ex?.Message, Is.EqualTo("Operation was canceled"));
     }
+
+    [Test]
+    public void Should_Format_ErrorMessage_In_Result_When_CustomMessage_Is_Provided()
+    {
+        var options = TestHelpers.DefaultOptions();
+        options.ThrowErrorOnFailure = false;
+        options.ErrorMessageOnFailure = CustomErrorMessage;
+        var exception = new Exception("Original error message");
+
+        var result = exception.Handle(options);
+
+        Assert.That(result.Success, Is.False);
+        Assert.That(result.Error.Message, Is.EqualTo($"{CustomErrorMessage}: Original error message"));
+    }
+
+    [Test]
+    public void ThrowIfCanceled_Should_Not_Throw_When_ThrowCanceled_Is_False()
+    {
+        var options = TestHelpers.DefaultOptions();
+        options.ThrowErrorOnFailure = false;
+        var canceledException = new OperationCanceledException("Operation was canceled");
+
+        var result = canceledException.Handle(options, throwCanceled: false);
+
+        Assert.That(result.Success, Is.False);
+        Assert.That(result.Error.AdditionalInfo, Is.SameAs(canceledException));
+    }
 }
