@@ -15,7 +15,7 @@ public class Result
     /// Error details. Null when Success is true.
     /// </summary>
     /// <example>null</example>
-    public Error? Error { get; internal set; }
+    public Error Error { get; internal set; }
 
     /// <summary>
     /// Gets result of converting Edifact to XML.

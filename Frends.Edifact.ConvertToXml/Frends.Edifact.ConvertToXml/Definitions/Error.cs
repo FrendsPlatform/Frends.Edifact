@@ -17,5 +17,5 @@ public class Error
     /// Additional error information, typically the exception.
     /// </summary>
     /// <example>null</example>
-    public Exception? AdditionalInfo { get; set; }
+    public Exception AdditionalInfo { get; set; }
 }
