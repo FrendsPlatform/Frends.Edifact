@@ -60,10 +60,11 @@ class CreateFromJsonTests
     }
 }";
 
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
+        var exception = Assert.Throws<Exception>(() =>
         {
             Edifact.CreateFromJson(
                 new Input { Json = testData },
+                new Options(),
                 CancellationToken.None);
         });
         Assert.NotNull(exception?.InnerException);
@@ -91,10 +92,11 @@ class CreateFromJsonTests
     }
 }";
 
-        var exception = Assert.Throws<ArgumentException>(() =>
+        var exception = Assert.Throws<Exception>(() =>
         {
             Edifact.CreateFromJson(
                 new Input { Json = testData },
+                new Options(),
                 CancellationToken.None);
         });
 
@@ -115,6 +117,7 @@ class CreateFromJsonTests
                 CreateUNBHeader = true,
                 HeaderData = new HeaderData { ControlNumber = "FIND_ME" }
             },
+            new Options(),
             CancellationToken.None);
         Assert.IsTrue(result.Edifact.Contains("FIND_ME"), "Could not verify that UNB header was created.");
     }

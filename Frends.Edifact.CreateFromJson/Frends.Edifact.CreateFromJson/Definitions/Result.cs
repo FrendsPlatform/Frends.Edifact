@@ -6,6 +6,18 @@
 public class Result
 {
     /// <summary>
+    /// Indicates whether the operation completed successfully.
+    /// </summary>
+    /// <example>true</example>
+    public bool Success { get; internal set; }
+
+    /// <summary>
+    /// Error details. Null when Success is true.
+    /// </summary>
+    /// <example>null</example>
+    public Error? Error { get; internal set; }
+
+    /// <summary>
     /// Result of creating Edifact from JSON.
     /// </summary>
     /// <example>
@@ -15,5 +27,5 @@ public class Result
     /// ...
     /// UNZ+1+SE1234567'
     /// </example>
-    public string Edifact { get; internal set; } = "";
+    public string Edifact { get; internal set; } = string.Empty;
 }
