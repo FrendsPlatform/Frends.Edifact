@@ -15,6 +15,7 @@ using EdiFabric.Core.Model.Edi.ErrorContexts;
 using EdiFabric.Framework;
 using EdiFabric.Framework.Readers;
 using Frends.Edifact.ConvertToXml.Definitions;
+using Frends.Edifact.ConvertToXml.Helpers;
 
 /// <summary>
 /// Task for converting Edifact to XML.
@@ -27,29 +28,44 @@ public static class Edifact
     /// D05B, D06A, D06B, D07A, D07B, D08A, D08B, D09A, D09B, D10A, D10B, D11A,
     /// D11B, D12A, D13A, D14A, D15A, D16A, D17A, D18A, D19A, D93A, D94A, D94B,
     /// D95A, D95B, D96A, D96B, D97A, D97B, D98A, D98B, D99A, D99B.
+    /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.ConvertToXml)
     /// </summary>
     /// <param name="input">Input parameters.</param>
-    /// <returns>string containing the XML representation of the EDIFACT document.</returns>
+    /// <param name="options">Additional parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Result containing the XML representation of the EDIFACT document.</returns>
     public static Result ConvertToXml(
-        [PropertyTab] Input input)
+        [PropertyTab] Input input,
+        [PropertyTab] Options options,
+        CancellationToken cancellationToken)
     {
-        Edifabric.Activation.Activation.Activate();
-
-        var edifactDocument = input.InputEdifact;
-
-        EdifactReaderSettings edifactReaderSettings = new() { NoEnvelope = input.AllowMissingUNB };
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(edifactDocument));
-        using var ediReader = new EdifactReader(stream, AssemblyFactory, edifactReaderSettings);
-        var ediItems = ediReader.ReadToEnd().ToList();
-
-        if (ediItems.OfType<ReaderErrorContext>().Any())
+        try
         {
-            var ex = ediItems.OfType<ReaderErrorContext>().Select(x => x.Exception);
-            throw new AggregateException("Error reading EDIFACT file", ex);
-        }
+            cancellationToken.ThrowIfCancellationRequested();
+            ValidationHandler.Run(input, options);
 
-        var returnValue = ConvertToXmlInternal(ediItems);
-        return new Result { Xml = returnValue };
+            Edifabric.Activation.Activation.Activate();
+
+            var edifactDocument = input.InputEdifact;
+
+            EdifactReaderSettings edifactReaderSettings = new() { NoEnvelope = input.AllowMissingUNB };
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(edifactDocument));
+            using var ediReader = new EdifactReader(stream, AssemblyFactory, edifactReaderSettings);
+            var ediItems = ediReader.ReadToEnd().ToList();
+
+            if (ediItems.OfType<ReaderErrorContext>().Any())
+            {
+                var ex = ediItems.OfType<ReaderErrorContext>().Select(x => x.Exception);
+                throw new AggregateException("Error reading EDIFACT file", ex);
+            }
+
+            var returnValue = ConvertToXmlInternal(ediItems);
+            return new Result { Success = true, Xml = returnValue };
+        }
+        catch (Exception ex)
+        {
+            return ex.Handle(options);
+        }
     }
 
     private static Assembly AssemblyFactory(MessageContext messageContext)

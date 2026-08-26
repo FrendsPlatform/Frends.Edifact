@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
+	  <TargetFramework>net8.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
 	  <AssemblyName>Frends.Edifact.ConvertToXml</AssemblyName>
 	  <RootNamespace>Frends.Edifact.ConvertToXml</RootNamespace>
 	  <LangVersion>Latest</LangVersion>
-	  <Version>1.1.0</Version>
+	  <Version>1.2.0</Version>
 	  <Authors>Frends</Authors>
 	  <Copyright>Frends</Copyright>
 	  <Company>Frends</Company>
@@ -18,12 +18,16 @@
 	  <Description>Task for converting Edifact files to XML.</Description>
 	  <PackageProjectUrl>https://frends.com/</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/FrendsPlatform/Frends.Edifact/tree/main/Frends.Edifact.ConvertToXml</RepositoryUrl>
+	  <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="FrendsTaskMetadata.json" Pack="true" PackagePath="/">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+	  <Content Include="../CHANGELOG.md" PackagePath="/" Pack="true"/>
+	  <Content Include="FrendsTaskMetadata.json"
+			   Pack="true"
+			   PackagePath="/"
+			   CopyToOutputDirectory="PreserveNewest" />
+	  <AdditionalFiles Include="FrendsTaskMetadata.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +41,14 @@
     <PackageReference Include="Frends.Edifabric.Templates.Edifact" Version="1.0.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FrendsTaskAnalyzers" Version="1.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
