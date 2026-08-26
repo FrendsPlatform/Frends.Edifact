@@ -30,7 +30,7 @@ internal class ErrorHandlerTest
         var result = Edifact.CreateFromJson(InvalidInput(), options, CancellationToken.None);
         Assert.That(result.Success, Is.False);
         Assert.That(result.Error, Is.Not.Null);
-        Assert.That(result.Error.Message, Is.Not.Empty);
+        Assert.That(result.Error?.Message, Is.Not.Empty);
     }
 
     [Test]
@@ -41,7 +41,7 @@ internal class ErrorHandlerTest
         var ex = Assert.Throws<Exception>(() =>
             Edifact.CreateFromJson(InvalidInput(), options, CancellationToken.None));
         Assert.That(ex, Is.Not.Null);
-        Assert.That(ex.Message, Contains.Substring(CustomErrorMessage));
+        Assert.That(ex?.Message, Contains.Substring(CustomErrorMessage));
     }
 
     [Test]
@@ -53,6 +53,6 @@ internal class ErrorHandlerTest
         var result = Edifact.CreateFromJson(InvalidInput(), options, CancellationToken.None);
         Assert.That(result.Success, Is.False);
         Assert.That(result.Error, Is.Not.Null);
-        Assert.That(result.Error.Message, Contains.Substring(CustomErrorMessage));
+        Assert.That(result.Error?.Message, Contains.Substring(CustomErrorMessage));
     }
 }

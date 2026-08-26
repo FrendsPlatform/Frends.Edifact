@@ -13,23 +13,23 @@ internal static class TestHelpers
         return File.ReadAllText(string.Concat(TestContext.CurrentContext.TestDirectory, @"..\..\..\..\..\..\TestFiles\", fileName));
     }
 
-    internal static Options DefaultOptions()
+    internal static Definitions.Options  DefaultOptions()
     {
-        return new Options { ThrowErrorOnFailure = true };
+        return new Definitions.Options { ThrowErrorOnFailure = true };
     }
 
     internal static string ConvertToJsonAndBack(string testData, bool createUnbHeader)
     {
         var jsonResult = Edifact.ConvertToJson(
-            new Input { InputEdifact = testData }, DefaultOptions(), CancellationToken.None);
+            new Definitions.Input { InputEdifact = testData }, DefaultOptions(), CancellationToken.None);
 
         var ediResult = From.Edifact.CreateFromJson(
             new From.Definitions.Input()
-            {
+            {   
                 CreateUNBHeader = createUnbHeader,
                 Json = jsonResult.Json
             },
-            new Options(),
+            new From.Definitions.Options(),
             CancellationToken.None
         );
 
