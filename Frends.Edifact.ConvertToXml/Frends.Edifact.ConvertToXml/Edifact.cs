@@ -42,7 +42,6 @@ public static class Edifact
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            ValidationHandler.Run(input, options);
 
             Edifabric.Activation.Activation.Activate();
 
