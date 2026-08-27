@@ -28,7 +28,7 @@ public static class Edifact
     /// <param name="input">Input parameters.</param>
     /// <param name="options">Additional parameters.</param>
     /// <param name="cancellationToken">Frends cancellation token.</param>
-    /// <returns>object { string Edifact }</returns>
+    /// <returns>object { bool Success, object Error { string Message, Exception AdditionalInfo }, string Edifact }</returns>
     public static Result CreateFromJson(
         [PropertyTab] Input input,
         [PropertyTab] Options options,

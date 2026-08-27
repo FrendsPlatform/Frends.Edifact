@@ -30,9 +30,9 @@ public class Input
     /// <example>
     /// {
     ///     "Edifact": {
-    ///         "UNB": { ... }
-    ///         "TSINVOIC": { ... }
-    ///         "UNZ": { ... }
+    ///         "UNB": {},
+    ///         "TSINVOIC": {},
+    ///         "UNZ": {}
     ///     }
     /// }</example>
     [DisplayFormat(DataFormatString = "Json")]
