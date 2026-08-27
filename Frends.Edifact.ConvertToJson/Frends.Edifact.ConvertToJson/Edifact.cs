@@ -43,6 +43,7 @@ public static class Edifact
             XmlDocument doc = new();
             doc.LoadXml(xmlResult);
             var json = JsonConvert.SerializeXmlNode(doc);
+            cancellationToken.ThrowIfCancellationRequested();
             return new Result { Success = true, Json = json };
         }
         catch (Exception ex)
