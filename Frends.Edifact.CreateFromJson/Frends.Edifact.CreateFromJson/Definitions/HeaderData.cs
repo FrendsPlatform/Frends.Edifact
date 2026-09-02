@@ -12,31 +12,31 @@ public class HeaderData
     /// Interchange control reference
     /// </summary>
     /// <example>131</example>
-    public string ControlNumber { get; set; } = "";
+    public string ControlNumber { get; set; } = string.Empty;
 
     /// <summary>
     /// Interchange sender identification
     /// </summary>
     /// <example>SENDER1</example>
-    public string InterchangeSenderIdentification { get; set; } = "";
+    public string InterchangeSenderIdentification { get; set; } = string.Empty;
 
     /// <summary>
     /// Interchange sender internal identification
     /// </summary>
     /// <example>ABC</example>
-    public string InterchangeSenderInternalIdentification { get; set; } = "";
+    public string InterchangeSenderInternalIdentification { get; set; } = string.Empty;
 
     /// <summary>
     /// Interchange recipient identification
     /// </summary>
     /// <example>RECEPIENT1</example>
-    public string InterchangeRecipientIdentification { get; set; } = "";
+    public string InterchangeRecipientIdentification { get; set; } = string.Empty;
 
     /// <summary>
     /// Interchange recipient internal identification
     /// </summary>
     /// <example>ABC</example>
-    public string InterchangeRecipientInternalIdentification { get; set; } = "";
+    public string InterchangeRecipientInternalIdentification { get; set; } = string.Empty;
 
     /// <summary>
     /// Date of preparation
@@ -44,7 +44,7 @@ public class HeaderData
     /// <example>991231</example>
     [DefaultValue("yyMMdd")]
     [DisplayFormat(DataFormatString = "Text")]
-    public string DateOfPreparation { get; set; } = "";
+    public string DateOfPreparation { get; set; } = string.Empty;
 
     /// <summary>
     /// Time of preparation
@@ -52,5 +52,5 @@ public class HeaderData
     /// <example>0000</example>
     [DefaultValue("hhmm")]
     [DisplayFormat(DataFormatString = "Text")]
-    public string TimeOfPreparation { get; set; } = "";
+    public string TimeOfPreparation { get; set; } = string.Empty;
 }

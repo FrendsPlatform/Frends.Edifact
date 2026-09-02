@@ -1,14 +1,16 @@
-﻿using EdiFabric.Core.Model.Edi;
-using EdiFabric.Core.Model.Edi.Edifact;
-using EdiFabric.Framework.Writers;
-using Frends.Edifact.CreateFromJson.Definitions;
-using Newtonsoft.Json;
+﻿namespace Frends.Edifact.CreateFromJson;
+
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-namespace Frends.Edifact.CreateFromJson;
+using EdiFabric.Core.Model.Edi;
+using EdiFabric.Core.Model.Edi.Edifact;
+using EdiFabric.Framework.Writers;
+using Frends.Edifact.CreateFromJson.Definitions;
+using Frends.Edifact.CreateFromJson.Helpers;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Task for converting Edifact to JSON.
@@ -24,16 +26,25 @@ public static class Edifact
     /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.CreateFromJson)
     /// </summary>
     /// <param name="input">Input parameters.</param>
+    /// <param name="options">Additional parameters.</param>
     /// <param name="cancellationToken">Frends cancellation token.</param>
-    /// <returns>object { string Edifact }</returns>
+    /// <returns>object { bool Success, object Error { string Message, Exception AdditionalInfo }, string Edifact }</returns>
     public static Result CreateFromJson(
         [PropertyTab] Input input,
+        [PropertyTab] Options options,
         CancellationToken cancellationToken)
     {
-        var xml = JsonConvert.DeserializeXmlNode(input.Json);
-        if (xml == null) throw new FormatException("Cound not deserialize input JSON.");
-        var result = CreateEdifactFromXml(xml.OuterXml, input, cancellationToken);
-        return new Result { Edifact = result };
+        try
+        {
+            var xml = JsonConvert.DeserializeXmlNode(input.Json);
+            if (xml == null) throw new FormatException("Cound not deserialize input JSON.");
+            var result = CreateEdifactFromXml(xml.OuterXml, input, cancellationToken);
+            return new Result { Success = true, Edifact = result };
+        }
+        catch (Exception ex)
+        {
+            return ex.Handle(options);
+        }
     }
 
     private static string CreateEdifactFromXml(
@@ -113,8 +124,7 @@ public static class Edifact
         catch (Exception ex)
         {
             throw new ArgumentOutOfRangeException(
-                $"Version {edifactVersion} is not supported. " +
-                $"See inner exception for details.", ex);
+                $"Version {edifactVersion} is not supported. " + $"See inner exception for details.", ex);
         }
     }
 
@@ -134,8 +144,7 @@ public static class Edifact
     }
 
     private static void WriteEdiMessages(
-        XElement ediXml, Type documentType,
-        EdifactWriter writer, CancellationToken cancellationToken)
+        XElement ediXml, Type documentType, EdifactWriter writer, CancellationToken cancellationToken)
     {
         var ediMessages = ediXml.DescendantsAndSelf(documentType.Name.ToString());
         foreach (var xElement in ediMessages)
