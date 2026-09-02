@@ -1,6 +1,7 @@
 namespace Frends.Edifact.ConvertToXml.Tests;
 
 using System;
+using System.Threading;
 using Frends.Edifact.ConvertToXml.Definitions;
 using NUnit.Framework;
 
@@ -10,6 +11,8 @@ using NUnit.Framework;
 [TestFixture]
 public class ConvertToXmlTests
 {
+    private static Options DefaultOptions() => new Options { ThrowErrorOnFailure = true };
+
     [Test]
     [TestCase("D01B_IFCSUM.txt")]
     public void XmlAllowMissingUnb(string fileName)
@@ -20,12 +23,16 @@ public class ConvertToXmlTests
         Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToXml(
-                new Input { InputEdifact = testData, AllowMissingUNB = false });
+                new Input { InputEdifact = testData, AllowMissingUNB = false },
+                DefaultOptions(),
+                CancellationToken.None);
         });
 
         // Now test that same content gets parsed if we allow missing UNB
         var result = Edifact.ConvertToXml(
-                new Input { InputEdifact = testData, AllowMissingUNB = true });
+                new Input { InputEdifact = testData, AllowMissingUNB = true },
+                DefaultOptions(),
+                CancellationToken.None);
         Assert.NotNull(result?.Xml);
     }
 
@@ -35,18 +42,16 @@ public class ConvertToXmlTests
     {
         string testData = TestHelpers.ReadTestFile(fileName);
 
-        // First test that it throws an exception when UNB is missing
+        // First test that it throws an exception when format is unsupported
         var exception = Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToXml(
-                new Input { InputEdifact = testData, AllowMissingUNB = true });
+                new Input { InputEdifact = testData, AllowMissingUNB = true },
+                DefaultOptions(),
+                CancellationToken.None);
         });
-        Assert.NotNull(exception?.InnerException);
-
-        // The file has Edifact version set to D13131B
-        Assert.AreEqual(
-            "Version D13131B is not supported. See inner exception for details.",
-            exception?.InnerException?.Message);
+        Assert.NotNull(exception);
+        Assert.That(exception.Message, Contains.Substring("Version D13131B is not supported"));
     }
 
     [Test]
@@ -73,9 +78,12 @@ public class ConvertToXmlTests
         string testData = TestHelpers.ReadTestFile(fileName);
 
         var result = Edifact.ConvertToXml(
-            new Input { InputEdifact = testData, AllowMissingUNB = true });
+            new Input { InputEdifact = testData, AllowMissingUNB = true },
+            DefaultOptions(),
+            CancellationToken.None);
 
         Assert.NotNull(result);
+        Assert.IsTrue(result.Success);
         Assert.IsTrue(result.Xml.Contains("<Edifact>"));
     }
 }
