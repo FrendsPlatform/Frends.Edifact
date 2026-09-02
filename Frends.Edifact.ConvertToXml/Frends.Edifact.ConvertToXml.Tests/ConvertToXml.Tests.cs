@@ -20,7 +20,7 @@ public class ConvertToXmlTests
         string testData = TestHelpers.ReadTestFile(fileName);
 
         // First test that it throws an exception when UNB is missing
-        Assert.Throws<Exception>(() =>
+        Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToXml(
                 new Input { InputEdifact = testData, AllowMissingUNB = false },
@@ -43,7 +43,7 @@ public class ConvertToXmlTests
         string testData = TestHelpers.ReadTestFile(fileName);
 
         // First test that it throws an exception when format is unsupported
-        var exception = Assert.Throws<Exception>(() =>
+        var exception = Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToXml(
                 new Input { InputEdifact = testData, AllowMissingUNB = true },

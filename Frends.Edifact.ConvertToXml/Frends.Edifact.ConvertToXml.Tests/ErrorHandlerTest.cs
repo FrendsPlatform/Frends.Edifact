@@ -20,7 +20,7 @@ internal class ErrorHandlerTest
     [Test]
     public void Should_Throw_Error_When_ThrowErrorOnFailure_Is_True()
     {
-        var ex = Assert.Throws<Exception>(() =>
+        var ex = Assert.Throws<AggregateException>(() =>
             Edifact.ConvertToXml(InvalidInput(), DefaultOptions(), CancellationToken.None));
         Assert.That(ex, Is.Not.Null);
     }
