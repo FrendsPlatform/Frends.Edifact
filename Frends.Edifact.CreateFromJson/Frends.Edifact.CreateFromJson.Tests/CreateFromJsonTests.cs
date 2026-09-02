@@ -60,7 +60,7 @@ class CreateFromJsonTests
     }
 }";
 
-        var exception = Assert.Throws<Exception>(() =>
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
         {
             Edifact.CreateFromJson(
                 new Input { Json = testData },
@@ -92,7 +92,7 @@ class CreateFromJsonTests
     }
 }";
 
-        var exception = Assert.Throws<Exception>(() =>
+        var exception = Assert.Throws<ArgumentException>(() =>
         {
             Edifact.CreateFromJson(
                 new Input { Json = testData },
