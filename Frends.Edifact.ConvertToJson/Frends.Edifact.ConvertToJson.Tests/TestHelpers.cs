@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.IO;
 using System.Threading;
-using from = Frends.Edifact.CreateFromJson;
+using From = Frends.Edifact.CreateFromJson;
 
 namespace Frends.Edifact.ConvertToJson.Tests;
 internal static class TestHelpers
@@ -12,13 +12,18 @@ internal static class TestHelpers
         return File.ReadAllText(string.Concat(TestContext.CurrentContext.TestDirectory, @"..\..\..\..\..\..\TestFiles\", fileName));
     }
 
+    internal static Options DefaultOptions()
+    {
+        return new Options { ThrowErrorOnFailure = true };
+    }
+
     internal static string ConvertToJsonAndBack(string testData, bool createUnbHeader)
     {
         var jsonResult = Edifact.ConvertToJson(
-            new Input { InputEdifact = testData });
+            new Input { InputEdifact = testData }, DefaultOptions(), CancellationToken.None);
 
-        var ediResult = from.Edifact.CreateFromJson(
-            new from.Definitions.Input()
+        var ediResult = From.Edifact.CreateFromJson(
+            new From.Definitions.Input()
             {
                 CreateUNBHeader = createUnbHeader,
                 Json = jsonResult.Json

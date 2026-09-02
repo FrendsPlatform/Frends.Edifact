@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AssemblyName>Frends.Edifact.ConvertToJson</AssemblyName>
 		<RootNamespace>Frends.Edifact.ConvertToJson</RootNamespace>
 
-		<Version>1.1.0</Version>
+		<Version>1.2.0</Version>
 		<Authors>Frends</Authors>
 		<Copyright>Frends</Copyright>
 		<Company>Frends</Company>
@@ -17,16 +17,32 @@
 		<Description>Task for converting Edifact files to JSON.</Description>
 		<PackageProjectUrl>https://frends.com/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/FrendsPlatform/Frends.Edifact/tree/main/Frends.Edifact.ConvertToJson</RepositoryUrl>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Frends.Edifact.ConvertToJson.Tests" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Frends.Edifabric.Activation" Version="1.0.3" />
 		<PackageReference Include="Frends.Edifabric.Templates.Edifact" Version="1.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="FrendsTaskAnalyzers" Version="1.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="FrendsTaskMetadata.json" Pack="true" PackagePath="/">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+		<Content Include="../CHANGELOG.md" PackagePath="/" Pack="true"/>
+		<Content Include="FrendsTaskMetadata.json"
+				 Pack="true"
+				 PackagePath="/"
+				 CopyToOutputDirectory="PreserveNewest" />
+		<AdditionalFiles Include="FrendsTaskMetadata.json" />
 	</ItemGroup>
 </Project>

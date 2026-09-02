@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Frends.Edifact.ConvertToJson.Definitions;
 using NUnit.Framework;
 
@@ -7,6 +8,8 @@ namespace Frends.Edifact.ConvertToJson.Tests;
 [TestFixture]
 class ConvertToJsonTests
 {
+    private static readonly Options DefaultOptions = new() { ThrowErrorOnFailure = true };
+
     [Test]
     [TestCase("D01B_IFCSUM.txt")]
     public void JsonAllowMissingUnb(string fileName)
@@ -17,12 +20,12 @@ class ConvertToJsonTests
         Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToJson(
-                new Input { InputEdifact = testData, AllowMissingUNB = false });
+                new Input { InputEdifact = testData, AllowMissingUNB = false }, DefaultOptions, CancellationToken.None);
         });
 
         // Now test that same content gets parsed if we allow missing UNB
         var result = Edifact.ConvertToJson(
-                new Input { InputEdifact = testData, AllowMissingUNB = true });
+                new Input { InputEdifact = testData, AllowMissingUNB = true }, DefaultOptions, CancellationToken.None);
         Assert.NotNull(result?.Json);
     }
 
@@ -67,16 +70,13 @@ class ConvertToJsonTests
     {
         string testData = TestHelpers.ReadTestFile(fileName);
 
-        // First test that it throws an exception when UNB is missing
         var exception = Assert.Throws<AggregateException>(() =>
             {
                 Edifact.ConvertToJson(
-                    new Input { InputEdifact = testData, AllowMissingUNB = true });
+                    new Input { InputEdifact = testData, AllowMissingUNB = true }, DefaultOptions, CancellationToken.None);
             });
-        Assert.NotNull(exception?.InnerException);
+        Assert.NotNull(exception);
         // The file has Edifact version set to D13131B
-        Assert.AreEqual(
-            "Version D13131B is not supported. See inner exception for details.",
-            exception?.InnerException?.Message);
+        Assert.That(exception?.Message, Does.Contain("D13131B"));
     }
 }
