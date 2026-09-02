@@ -17,7 +17,7 @@ class ConvertToJsonTests
         string testData = TestHelpers.ReadTestFile(fileName);
 
         // First test that it throws an exception when UNB is missing
-        Assert.Throws<Exception>(() =>
+        Assert.Throws<AggregateException>(() =>
         {
             Edifact.ConvertToJson(
                 new Input { InputEdifact = testData, AllowMissingUNB = false }, DefaultOptions, CancellationToken.None);
@@ -70,7 +70,7 @@ class ConvertToJsonTests
     {
         string testData = TestHelpers.ReadTestFile(fileName);
 
-        var exception = Assert.Throws<Exception>(() =>
+        var exception = Assert.Throws<AggregateException>(() =>
             {
                 Edifact.ConvertToJson(
                     new Input { InputEdifact = testData, AllowMissingUNB = true }, DefaultOptions, CancellationToken.None);

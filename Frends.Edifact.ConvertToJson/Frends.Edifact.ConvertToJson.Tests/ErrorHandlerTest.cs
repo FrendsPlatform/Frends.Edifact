@@ -17,7 +17,7 @@ internal class ErrorHandlerTest
         var options = TestHelpers.DefaultOptions();
         options.ThrowErrorOnFailure = true;
 
-        var ex = Assert.Throws<Exception>(() =>
+        var ex = Assert.Throws<AggregateException>(() =>
             Edifact.ConvertToJson(
                 new Input { InputEdifact = "INVALID_EDIFACT_DATA", AllowMissingUNB = true },
                 options,
