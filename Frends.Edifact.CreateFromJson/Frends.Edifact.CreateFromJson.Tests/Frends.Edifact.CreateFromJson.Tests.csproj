@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
@@ -18,5 +18,9 @@
       <ProjectReference Include="..\..\Frends.Edifact.ConvertToJson\Frends.Edifact.ConvertToJson\Frends.Edifact.ConvertToJson.csproj" />
       <ProjectReference Include="..\Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson.csproj" />
     </ItemGroup>
+
+	<Target Name="BuildExternalProject" BeforeTargets="BeforeBuild">
+		<Exec Command="dotnet build &quot;$(MSBuildProjectDirectory)\..\..\Frends.Edifact.ConvertToJson\Frends.Edifact.ConvertToJson\Frends.Edifact.ConvertToJson.csproj&quot; -c $(Configuration)" />
+	</Target>
 
 </Project>
