@@ -14,7 +14,7 @@ internal static class TestHelpers
     internal static string ConvertToJsonAndBack(string testData, bool createUnbHeader)
     {
         var jsonResult = To.Edifact.ConvertToJson(
-            new To.Definitions.Input { InputEdifact = testData });
+            new To.Definitions.Input { InputEdifact = testData }, new To.Definitions.Options(), CancellationToken.None);
 
         var ediResult = Edifact.CreateFromJson(
             new Definitions.Input()

@@ -1,17 +1,18 @@
-﻿using EdiFabric.Core.Model.Edi;
-using EdiFabric.Core.Model.Edi.ErrorContexts;
-using EdiFabric.Framework;
-using EdiFabric.Framework.Readers;
-using Frends.Edifact.ConvertToJson.Definitions;
-using Newtonsoft.Json;
+﻿namespace Frends.Edifact.ConvertToJson;
+
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
-namespace Frends.Edifact.ConvertToJson;
+using EdiFabric.Core.Model.Edi;
+using EdiFabric.Core.Model.Edi.ErrorContexts;
+using EdiFabric.Framework;
+using EdiFabric.Framework.Readers;
+using Frends.Edifact.ConvertToJson.Definitions;
+using Frends.Edifact.ConvertToJson.Helpers;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Task for converting Edifact to JSON.
@@ -27,15 +28,28 @@ public static class Edifact
     /// [Documentation](https://tasks.frends.com/tasks/frends-tasks/Frends.Edifact.ConvertToJson)
     /// </summary>
     /// <param name="input">Input parameters.</param>
-    /// <returns>object { string Json }</returns>
+    /// <param name="options">Additional parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>object { bool Success, Error Error, string Json }</returns>
     public static Result ConvertToJson(
-        [PropertyTab] Input input)
+        [PropertyTab] Input input,
+        [PropertyTab] Options options,
+        CancellationToken cancellationToken)
     {
-        var xmlResult = ConvertEdifactToXml(input);
-        XmlDocument doc = new();
-        doc.LoadXml(xmlResult);
-        var json = JsonConvert.SerializeXmlNode(doc);
-        return new Result { Json = json };
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var xmlResult = ConvertEdifactToXml(input);
+            XmlDocument doc = new();
+            doc.LoadXml(xmlResult);
+            var json = JsonConvert.SerializeXmlNode(doc);
+            cancellationToken.ThrowIfCancellationRequested();
+            return new Result { Success = true, Json = json };
+        }
+        catch (Exception ex)
+        {
+            return ex.Handle(options);
+        }
     }
 
     private static Assembly AssemblyFactory(MessageContext messageContext)
@@ -49,8 +63,6 @@ public static class Edifact
         {
             throw new ArgumentOutOfRangeException($"Version {messageContext.Version} is not supported. See inner exception for details.", ex);
         }
-
-
     }
 
     private static string ConvertEdifactToXml(
@@ -80,6 +92,7 @@ public static class Edifact
         var xDocument = new XDocument();
         var root = new XElement("Edifact");
         xDocument.Add(root);
+
         // Serialize EdiItems and add to document
         var ediItemsXml = ediItems.Select(x => Serialize(x));
         root.Add(ediItemsXml.Select(x => x.Elements()));
@@ -93,8 +106,9 @@ public static class Edifact
 
         var serializer = new XmlSerializer(ediItem.GetType());
         XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-        //add empty namespace to exclude namespaces from output
-        namespaces.Add("", "");
+
+        // add empty namespace to exclude namespaces from output
+        namespaces.Add(string.Empty, string.Empty);
         using var ms = new MemoryStream();
         serializer.Serialize(ms, ediItem, namespaces);
         ms.Position = 0;

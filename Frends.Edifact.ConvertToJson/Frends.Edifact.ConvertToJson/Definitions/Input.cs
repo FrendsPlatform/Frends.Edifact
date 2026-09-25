@@ -20,7 +20,7 @@ public class Input
     /// </example>
     [DefaultValue("")]
     [DisplayFormat(DataFormatString = "Text")]
-    public string InputEdifact { get; set; } = "";
+    public string InputEdifact { get; set; } = string.Empty;
 
     /// <summary>
     /// Allow Edifact messages with missing UNB header.

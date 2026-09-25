@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\..\Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson.csproj" />
     </ItemGroup>
 
+	<Target Name="BuildExternalProject" BeforeTargets="BeforeBuild">
+		<Exec Command="dotnet build &quot;$(MSBuildProjectDirectory)\..\..\Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson\Frends.Edifact.CreateFromJson.csproj&quot; -c $(Configuration)" />
+	</Target>
+
 </Project>
