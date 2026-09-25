@@ -18,6 +18,7 @@ public class Input
     /// <summary>
     /// UNB header data. Used if CreateUnbHeader is set to true.
     /// </summary>
+    /// <example>{ ControlNumber = "131", InterchangeSenderIdentification = "SENDER1" }</example>
     [UIHint(nameof(CreateUNBHeader), "", true)]
     public HeaderData HeaderData { get; set; } = new HeaderData();
 
@@ -27,13 +28,13 @@ public class Input
     /// JSON.
     /// </summary>
     /// <example>
-    /// { 
+    /// {
     ///     "Edifact": {
-    ///         "UNB": { ... }
-    ///         "TSINVOIC": { ... }
-    ///         "UNZ": { ... }
+    ///         "UNB": {},
+    ///         "TSINVOIC": {},
+    ///         "UNZ": {}
     ///     }
     /// }</example>
     [DisplayFormat(DataFormatString = "Json")]
-    public string Json { get; set; } = "";
+    public string Json { get; set; } = string.Empty;
 }

@@ -1,4 +1,5 @@
 ﻿using Frends.Edifact.ConvertToJson.Definitions;
+using Frends.Edifact.CreateFromJson.Definitions;
 using NUnit.Framework;
 using System.IO;
 using System.Threading;
@@ -28,6 +29,7 @@ internal static class TestHelpers
                 CreateUNBHeader = createUnbHeader,
                 Json = jsonResult.Json
             },
+            new Options(),
             CancellationToken.None
         );
 
